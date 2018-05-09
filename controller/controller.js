@@ -45,9 +45,16 @@ mongoose.Promise=global.Promise;
     //require('./models/scrape.js');
     //=mongoose.model('prpro',useSchema);
     exports.create=function(req,response){
-    	var prod_id=[];
-      var name=req.params.id;
-    	console.log('d');
+
+  }
+      
+   //  }
+
+
+    function create(req,response){
+      var prod_id=[];
+      var name=req.body.id;
+      console.log('d');
       var flip=[];
       fs.truncate("push_fl/push_fl/spiders/name.txt",0,function(){
           fs.writeFile("push_fl/push_fl/spiders/name.txt",name,function(err){
@@ -66,7 +73,7 @@ mongoose.Promise=global.Promise;
      console.log("res")
      // res.on('data',function(chunk){
      //  //console.log(chunk)
-     // 	dasa+=chunk.toString();
+     //   dasa+=chunk.toString();
      //  // 
      //  // if(dasa.length>5000){
      //  //   request.abort();
@@ -75,31 +82,31 @@ mongoose.Promise=global.Promise;
     // })
       //.on('end',function(){
 
-     //	console.log(dasa)
+     // console.log(dasa)
       //while((match=regex.exec(dasa)) && i<12){
-      	//console.log(prod_id)
-      //	i=i+1;
+        //console.log(prod_id)
+      //  i=i+1;
         // if(match[1]==[]){
         //   regex=
         // }
         
-      //	prod_id.push(match);
-      	//console.log(prod_id)
-      	// if(i==12){
+      //  prod_id.push(match);
+        //console.log(prod_id)
+        // if(i==12){
 
          // console.log("hhh")
-      	//	console.log(JSON.stringify(prod_id));
-      		//console.log(name);
-      		//routes(app);
+        //  console.log(JSON.stringify(prod_id));
+          //console.log(name);
+          //routes(app);
 
-      		//var vv=JSON.stringify(prod_id)
+          //var vv=JSON.stringify(prod_id)
            fs.truncate("push_fl/push_fl/spiders/red.txt",0,function(err){
             if(err) console.log(err)
            })
            fs.truncate("push_fl/push_fl/spiders/new_am.txt",0,function(err){
             if(err) console.log(err)
            })
-      		//cmd.run('> /home/pragya/Downloads/reviewpart3/push_fl/push_fl/spiders/red.html');
+          //cmd.run('> /home/pragya/Downloads/reviewpart3/push_fl/push_fl/spiders/red.html');
           //--------
           cmd.get(`
             cd 'push_fl/push_fl/spiders'
@@ -114,22 +121,22 @@ mongoose.Promise=global.Promise;
             flip=(flip1.split('\n'))[2]
             console.log(flip)
             var user=new userSchema({
-      		 	name: name,
-     	      prod_id: vv,
+            name: name,
+            prod_id: vv,
             fl_url: flip,
             price_fl: price
             })
-    	     console.log(user);
-    	     user.save(function(err){
-    		   if (err){
-    			 console.log(err);
-    		   }
-    		   else{
-    			console.log("ddccd");
-          response.send(user)
-    		   }
+           console.log(user);
+           user.save(function(err,result){
+           if (err){
+           console.log(err);
+           }
+           else{
+          console.log("ddccd");
+          getResult(req,response, result)
+           }
 
-    	});
+      });
       }
      //else{
       //console.log(err)
@@ -145,20 +152,16 @@ mongoose.Promise=global.Promise;
 
   // }).on("err",function(e){
   //   console.log("e.message");
-  }
+    }
+
+    function getResult(req,res,result){
+
       
-   //  }
-     exports.require=function(req,res){
-     	
-     	var name=req.params.id;
-     	var items=[];
+      var name=req.body.id;
+      var items=[];
       var fl_urls=[];
       var price_fl=[];
-         var que=userSchema.findOne({
-         	'name': name
-         }, function(err,result){
-         	if(err) console.log(err); 
-            //items=result.prod_id;
+
             items=(result.prod_id).split(",");
             items[0]=(items[0]).replace("[","")
             items[9]=(items[9]).replace("]","")
@@ -181,8 +184,8 @@ mongoose.Promise=global.Promise;
             console.log(price_fl)
             //var pid_fl=[];
             for(var flip2=0;flip2<10;flip2++){
-            	items[flip2]=items[flip2].split("'")[1]
-            	//items[flip2]=items[flip2].replace(/'/,"")
+              items[flip2]=items[flip2].split("'")[1]
+              //items[flip2]=items[flip2].replace(/'/,"")
               var str_fl=(fl_urls[flip2])
               var list_fl=str_fl.split('/')
               name_fl[flip2]=list_fl[1]
@@ -210,114 +213,114 @@ mongoose.Promise=global.Promise;
              //
             //items=JSON.parse(items[0]);
             console.log(items[0])
-         		
-          		fs.truncate("first/first/spiders/data_am.txt",0,function(){
-          		console.log("items");
-          			fs.writeFile("first/first/spiders/data_am.txt",items[0],function(err){
-          			if (err)
-          				console.log(err);
-          			
-          	    })	})
-          		fs.truncate("first/first/spiders/dat.txt",0,function(){
-          		//setTimeout(function(){
-          			fs.writeFile("first/first/spiders/dat.txt",items[1],function(err){
-          			if (err){
-          				console.log(err);
-          			}else{
-          	
-          		console.log("itr");
-          	    
-          		}
-          	})	})
-          		fs.truncate("first/first/spiders/dt.txt",0,function(){
-          		//setTimeout(function(){
-          			fs.writeFile("first/first/spiders/dt.txt",items[2],function(err){
-          			if (err){
-     				console.log(err);
-          			}else{
-          	
-          		//console.log(itr);
-          	    
-          		}
-          	})	})
-          		fs.truncate("first/first/spiders/daa.txt",0,function(){
-          		//setTimeout(function(){
-          			fs.writeFile("first/first/spiders/daa.txt",items[3],function(err){
-          			if (err){
-          				console.log(err);
-          			}else{
-          	
-          		//console.log(itr);
-          	    
-          		}
-          	})	})
-          		
-          		fs.truncate("first/first/spiders/dd.txt",0,function(){
-          		//setTimeout(function(){
-          			fs.writeFile("first/first/spiders/dd.txt",items[4],function(err){
-          			if (err){
-          				console.log(err);
-          			}else{
-          	
-          		//console.log(itr);
-          	    
-          		}
-          	})	})
-          		fs.truncate("first/first/spiders/daa1.txt",0,function(){
-          		//setTimeout(function(){
-          			fs.writeFile("first/first/spiders/daa1.txt",items[5],function(err){
-          			if (err){
-          				console.log(err);
-          			}else{
-          	
-          		//console.log(itr);
-          	    
-          		}
-          	})	})
-          		fs.truncate("first/first/spiders/daa2.txt",0,function(){
-          		//setTimeout(function(){
-          			fs.writeFile("first/first/spiders/daa2.txt",items[6],function(err){
-          			if (err){
-          				console.log(err);
-          			}else{
-          	
-          		//console.log(itr);
-          	    
-          		}
-          	})	})
-          	fs.truncate("first/first/spiders/daa3.txt",0,function(){
-          		//setTimeout(function(){
-          			fs.writeFile("first/first/spiders/daa3.txt",items[7],function(err){
-          			if (err){
-          				console.log(err);
-          			}else{
-          	
-          		//console.log(itr);
-          	    
-          		}
-          	})	})
-          	fs.truncate("first/first/spiders/daa4.txt",0,function(){
-          		//setTimeout(function(){
-          			fs.writeFile("first/first/spiders/daa4.txt",items[8],function(err){
-          			if (err){
-          				console.log(err);
-          			}else{
-          	
-          		//console.log(itr);
-          	    
-          		}
-          	})	})
-          	fs.truncate("first/first/spiders/daa5.txt",0,function(){
-          		//setTimeout(function(){
-          			fs.writeFile("first/first/spiders/daa5.txt",items[9],function(err){
-          			if (err){
-          				console.log(err);
-          			}else{
-          	
-          		//console.log(itr);
-          	    
-          		}
-          	})	})
+            
+              fs.truncate("first/first/spiders/data_am.txt",0,function(){
+              console.log("items");
+                fs.writeFile("first/first/spiders/data_am.txt",items[0],function(err){
+                if (err)
+                  console.log(err);
+                
+                })  })
+              fs.truncate("first/first/spiders/dat.txt",0,function(){
+              //setTimeout(function(){
+                fs.writeFile("first/first/spiders/dat.txt",items[1],function(err){
+                if (err){
+                  console.log(err);
+                }else{
+            
+              console.log("itr");
+                
+              }
+            })  })
+              fs.truncate("first/first/spiders/dt.txt",0,function(){
+              //setTimeout(function(){
+                fs.writeFile("first/first/spiders/dt.txt",items[2],function(err){
+                if (err){
+            console.log(err);
+                }else{
+            
+              //console.log(itr);
+                
+              }
+            })  })
+              fs.truncate("first/first/spiders/daa.txt",0,function(){
+              //setTimeout(function(){
+                fs.writeFile("first/first/spiders/daa.txt",items[3],function(err){
+                if (err){
+                  console.log(err);
+                }else{
+            
+              //console.log(itr);
+                
+              }
+            })  })
+              
+              fs.truncate("first/first/spiders/dd.txt",0,function(){
+              //setTimeout(function(){
+                fs.writeFile("first/first/spiders/dd.txt",items[4],function(err){
+                if (err){
+                  console.log(err);
+                }else{
+            
+              //console.log(itr);
+                
+              }
+            })  })
+              fs.truncate("first/first/spiders/daa1.txt",0,function(){
+              //setTimeout(function(){
+                fs.writeFile("first/first/spiders/daa1.txt",items[5],function(err){
+                if (err){
+                  console.log(err);
+                }else{
+            
+              //console.log(itr);
+                
+              }
+            })  })
+              fs.truncate("first/first/spiders/daa2.txt",0,function(){
+              //setTimeout(function(){
+                fs.writeFile("first/first/spiders/daa2.txt",items[6],function(err){
+                if (err){
+                  console.log(err);
+                }else{
+            
+              //console.log(itr);
+                
+              }
+            })  })
+            fs.truncate("first/first/spiders/daa3.txt",0,function(){
+              //setTimeout(function(){
+                fs.writeFile("first/first/spiders/daa3.txt",items[7],function(err){
+                if (err){
+                  console.log(err);
+                }else{
+            
+              //console.log(itr);
+                
+              }
+            })  })
+            fs.truncate("first/first/spiders/daa4.txt",0,function(){
+              //setTimeout(function(){
+                fs.writeFile("first/first/spiders/daa4.txt",items[8],function(err){
+                if (err){
+                  console.log(err);
+                }else{
+            
+              //console.log(itr);
+                
+              }
+            })  })
+            fs.truncate("first/first/spiders/daa5.txt",0,function(){
+              //setTimeout(function(){
+                fs.writeFile("first/first/spiders/daa5.txt",items[9],function(err){
+                if (err){
+                  console.log(err);
+                }else{
+            
+              //console.log(itr);
+                
+              }
+            })  })
          console.log("Ds")
          
                       cmd.get(`
@@ -363,8 +366,8 @@ mongoose.Promise=global.Promise;
                             phantom.create().then(function(ph){
                             ph.createPage().then(function(page){
                             page.open(item).then(function(status){
-                            	setTimeout(here,2500)
-                            	})
+                              setTimeout(here,1000)
+                              })
                             function here(){
                             page.property('content').then(function(content){
                             //var st=setTimeout(function(){
@@ -375,17 +378,17 @@ mongoose.Promise=global.Promise;
                             img_fl[i_fl]=($(element).attr("src"))
                             })
                             //console.log(img_fl)
-                            var rev_fl1=[];
+                            var rev_fl1;
                             price_fl1[i_fl]=price_fl[i_fl]
-                            $('div[class="row"]').find('div[class="qwjRop"]'>'div'>'div').each(function(index, element){
-                            rev_fl1[index]=($(element).text());
+                            $('div[class="row"]').find('div[class="qwjRop"]').each(function(index, element){
+                            rev_fl1=($(element).text());
                            });
                            page.close();
                            ph.exit();
-                    //console.log(rev_fl)
+                    
                            rev_fl[i_fl]=(rev_fl1+"\n")
                            i_fl++;
-
+                         //  console.log(rev_fl)
                            callback(rev_fl,img_fl,i_fl,price_fl1);
                      
                           //},3000)
@@ -486,6 +489,32 @@ mongoose.Promise=global.Promise;
                             
                           }
                         })
+    }
+
+
+     exports.require=function(req,res){
+
+
+
+console.log(req.body)
+
+
+         var que=userSchema.findOne({
+         	'name': req.body.id
+         }, function(err,rslt){
+         	if(err) console.log(err); 
+            //items=result.prod_id;
+
+            console.log(rslt)
+
+            if(!rslt)
+            {
+              create(req,res);
+            }
+            else
+            {
+              getResult(req,res,rslt);
+            }
             
         }
         )}

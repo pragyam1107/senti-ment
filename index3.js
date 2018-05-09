@@ -22,6 +22,9 @@ app.use(function(req,res,next){
 	next();
 });
 
+app.use('/client',express.static('client'))
+
+
 //mo
 
 //var Model11=mongoose.model('Model',useSchema);
@@ -56,8 +59,8 @@ app.use(function(req,res,next){
      
        
  
-console.log('Listening to port 2100...');
-app.listen(2100);
+console.log('Listening to port 2200...');
+app.listen(2200);
 
 // var options;
 // var regex=/<li id=".*" data-asin="(.*)" class="s-result-item celwidget "><div class="s-item-container">/g

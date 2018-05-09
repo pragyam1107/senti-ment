@@ -2,8 +2,7 @@
 module.exports=function(app){
   var cot=require('./controller/controller.js')
 
-app.route('/:id')
+app.route('/')
  //.get(cot.list)
- .post(cot.create)
- .get(cot.require);
+ .post(cot.require)
  };

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	 <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+<script>
+var app = angular.module('myApp', []);
+app.controller('myCtrl', function($scope,$http) {
+var url = "http://127.0.0.1:2200/";
+    $scope.product;
+    var config = {headers: {'Content-Type': 'application/json'}}
+   
+	$scope.loadDoc = function(p){
+
+	$http.post("http://127.0.0.1:2200/", {id: p}).then(function(item){
+	console.log("rrr",item);	  
+	document.write(item.object);
+    })
+   }
+});
+</script>
+<style>
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+.col-8{width:62%; float:left;}
+.col-4{width:33%; float:right;}
+</style>
+</head>
+<body>
+<center>
+<div style="background-color:#002e5b; color:white;  padding-top:20px;padding-bottom: 20px;"><h2>Sentiment Analysis of Scraped consumer reviews</h2></row></center>
+
+<h2>Aspects:</h2>
+<div class="row" style="padding-left: 50px; padding-right: 50px;">
+  <div class="col-8" style="padding-top: 50px;">
+
+  	<table>
+  <tr>
+    <th>Product Image</th>
+    <th>Name</th>
+    <th>Price</th>
+    <th>Buy from here</th>
+  </tr>
+  <tr>
+    <td><img id="productimage" src="pulpitrock.jpg" alt="Mountain View"></td>
+    <td>Name Of Product</td>
+    <td>Price of Product</td>
+    <td>Link to buy</td>
+  </tr>
+  <!--<tr>
+    <td>Magazzini Alimentari Riuniti</td>
+    <td>Giovanni Rovelli</td>
+    <td>Italy</td>
+    <td>Canada</td>
+  </tr>-->
+</table>
+
+
+  </div>
+  <div class="col-4">
+  	<center>
+  		<h3>Search:</h3>
+<div ng-app="myApp" ng-controller="myCtrl">	
+<input id="input" type="text" ng-model="product"></input>
+<button type="button" ng-click="loadDoc(product)">Go!</button>
+<p id=demo></p></div></center>
+</div></div>
+</div>
+
+
+
+
+
+<script> 
+	var item
+	for(var i =0 ;i<arr.length;i++)
+        {
+          document.getElementById("aspect").innerHTML = item[i];
+          //document.write(arr[i]);
+        }</script>
+
+
+
+</body>
+</html>

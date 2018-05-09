@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+<script>
+var app = angular.module('myApp', []);
+app.controller('myCtrl', function($scope,$http) {
+var url = "http://127.0.0.1:2200/";
+    $scope.product;
+    var config = {headers: {'Content-Type': 'application/json'}}
+   $scope.loadDoc = function(p){
+		var fData = [];
+	$http.post("http://127.0.0.1:2200/", {id: p}).then(function(item){
+		//item=JSON.parse(item)
+		item=item.data;
+		console.log(item)
+var k=0;
+var asp= [];
+//var price= [];
+//var name= [];
+//var link= [];
+//var image= [];
+
+for(var i=0;i<item.length;i++){
+		asp[i]=item[i][0].aspect;
+	}
+var text="<ul>"
+	for(var j=0;j<asp.length;j++){
+       for(var k=0; k<item[j].length; k++)
+       text +=  "<li style='width:300px;height:100px;'><a href='"+item[j][k].link +"'>click here</a></li></br>";
+
+}
+text += "</ul>";
+var name="<ul>"
+var price="<ul>"
+
+var text_im="<ul>"
+	for(var j=0;j<asp.length;j++){
+       for(var k=0; k<item[j].length; k++){
+       text_im+=  "<li><img src='"+item[j][k].image +"' style='width:200px;height:100px;'></img></li></br>";
+   name+="<li style='width:300px;height:100px;'>"+item[j][k].name+"</li></br>"
+   price+="<li style='width:300px;height:100px;'>"+item[j][k].price+"</li></br>"
+}
+}
+text_im+= "</ul>";
+
+var text_as="<ul>"
+for(var m=0;m<asp.length;m++){
+	text_as+="<li style='width:300px;height:100px;'>"+asp[m]+"</li></br>"
+	for(var n=1;n<item[m].length;n++){
+		text_as+="<li style='width:300px;height:100px;'></li></br>"
+
+	}
+}text_as+="</ul>"
+name+="</ul>"
+price+="</ul>"
+document.getElementById("aspect").innerHTML=text_as;
+document.getElementById("link").innerHTML=text;
+document.getElementById("image").innerHTML=text_im;
+document.getElementById("name").innerHTML=name ;
+document.getElementById("price").innerHTML=price;
+ 
+    })
+   }
+});
+</script>
+<body ng-app="myApp" ng-controller="myCtrl">
+
+<div>	
+
+<p id=demo></p>
+
+<style>
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}    /* -webkit-column-width: 100px;*/
+th{
+	border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+td {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+    height:300px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+/* Create four equal columns that floats next to each other */
+.column1 {
+	  display: table-cell;
+    padding: 16px;
+    float: left;
+    width: 20%;
+   
+    /* height: 300px; Should be removed. Only for demonstration */
+}
+.column2 {
+	  display: table-cell;
+    padding: 16px;
+    float: left;
+    width: 15%;
+    /* height: 300px; Should be removed. Only for demonstration */
+}
+.column3 {
+	  display: table-cell;
+    padding: 16px;
+    float: left;
+    width: 35%;
+   /* padding: 10px;
+    /* height: 300px; Should be removed. Only for demonstration */
+}
+.column4 {
+	  display: table-cell;
+    padding: 16px;
+    float: left;
+    width: 10%;
+  /*  padding: 10px;
+    /* height: 300px; Should be removed. Only for demonstration */
+}
+.column5 {
+	  display: table-cell;
+    padding: 16px;
+    float: left;
+    width: 20%;
+    /*padding: 10px;
+    /* height: 300px; Should be removed. Only for demonstration */
+}
+
+/* Clear floats after the columns */
+.row:after {
+
+    width: 100%;
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.col-8{width:62%; float:left;}
+.col-4{width:33%; float:right;}
+
+</style>
+</head>
+
+<center>
+<div style="background-color:#002e5b; color:white;  padding-top:20px;padding-bottom: 20px;"><h2>Sentiment Analysis of Scraped consumer reviews</h2></row></center>
+
+<div ng-repeat="object in fobject">
+hello
+</div>
+
+
+<div class="row" style="padding-left: 50px; padding-right: 50px;">
+  <div class="col-9" style="padding-top: 50px;">
+  
+  </div>
+  <div class="col-5">
+  	<center>
+  		<h3>Search:</h3>
+<div ng-app="myApp" ng-controller="myCtrl">	
+<input id="input" type="text" ng-model="product"></input>
+<button type="button" ng-click="loadDoc(product)">Go!</button>
+<p id=demo></p></div></center>
+</div></div>
+</div>
+</div>	
+
+
+<div class="row">
+  <div class="column1" style="background-color:#aaa;">
+    <div>Image</div></br>	
+   <span id="image" float="left"></span>
+  </div>
+  <div class="column2" style="background-color:#bbb;">
+  	<div>Aspect</div></br>
+   <span id="aspect"></span>
+  </div>
+  <div class="column3" style="background-color:#ccc;">
+  	<div>Name</div></br>
+    <span id="name"></span>
+  </div>
+  <div class="column4" style="background-color:#ddd;">
+  	<div>Price</div></br>
+   <span id="price"></span>
+  </div>
+  <div class="column5" style="background-color:#ddd;">
+  	<div>Links</div></br>
+  <a id="link"></a>
+  </div>
+</div>
+
+
+
+</body>
+</html>

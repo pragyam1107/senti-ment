@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+<script>
+var app = angular.module('myApp', []);
+app.controller('myCtrl', function($scope,$http) {
+var url = "http://127.0.0.1:2200/";
+    $scope.product;
+    var config = {headers: {'Content-Type': 'application/json'}}
+   
+//    $scope.fobject = [{
+// aspect:"BOOK",
+// image:"https://m.media-amazon.com/images/I/51ilCq+vKGL._AC_US60_SCLZZZZZZZ__.jpg",
+// link:"http://www.amazon.in/dp/B0784Z28TG",
+// name:"10 Full Syllabus Mock Tests for NEET By Career Point, Kota",
+// price:"₹ 370.00"     
+//    }];
+
+  $scope.loadDoc = function(p){
+    var fData = [];
+  $http.post("http://127.0.0.1:2200/", {id: p}).then(function(item){
+    //item=JSON.parse(item)
+    item=item.data;
+    console.log(item)
+var k=0;
+var asp= [100];
+var price= [100][100];
+name= [100][100];
+var link= [100][100];
+var image= [100][100];
+  for(var i=0;i<item.length;i++){
+    asp[i]=item[i][0].aspect;
+    var fruits, text, fLen, i;
+
+//fruits = ["Banana", "Orange", "Apple", "Mango"];
+//fLen = fruits.length;
+//text = "<ul>";
+//for (i = 0; i < fLen; i++) {
+   text="<ul>"
+     for(var j=0;j<item[i].length;j++){
+      document.getElementById("aspect").innerHTML+=item[i][j].aspect+"</br>";
+    // fData[k]=item[i][j];
+    //var li=
+    
+    document.getElementById("image").src=item[i][j].image+"</br>";
+    document.getElementById("name").innerHTML+=item[i][j].name+"</br>" ;
+    document.getElementById("price").innerHTML+=item[i][j].price+"</br>";
+ text += "<div>" + item[i][j].link + "</div>";
+
+
+document.getElementById("link").href = text;
+
+    
+    //document.getElementById("link").href=item[i][j].link;
+    document.getElementById("link").innerHTML+="link"+"</br>";
+    //k++;  
+    }
+  }
+  text += "</ul>";
+//  for(var x=0;x<asp.length;x++){
+//    for(var y=0;y<item[x].length;y++){
+//      name[x][y]=item[x][y].name;
+    //  price[x][y]=item[x][y].price;
+
+      
+  // name.toString();
+ // document.getElementById("aspect").innerHTML = name;
+
+//console.log(item)
+    //  price[x][y]=item[x][y].price;
+    //  image[x][y]=item[x][y].image;
+    //  link[x][y]=item[x][y].link;
+  
+
+  
+
+  //$scope.fobject = fData;
+  //$scope.$apply();
+  //console.log("www",fData);
+  //document.write(item);  
+    })
+   }
+});
+</script>
+<body ng-app="myApp" ng-controller="myCtrl">
+
+<div> 
+<input id="input" type="text" ng-model="product"></input>
+<button type="button" ng-click="loadDoc(product)">kk</button>
+<p id=demo></p>
+
+<!-- 
+    <table>
+  <tr>
+    <th>Product Image</th>
+    <th>Name</th>
+    <th>Price</th>
+    <th>Buy from here</th>
+  </tr>
+  <tr ng-repeat="data in fobject">
+    <td><img id="productimage" src="{{data.image}}" alt="Mountain View"></td>
+    <td>{{data.name}}</td>
+    <td>{{data.price}}</td>
+    <td>{{data.link}}</td>
+  </tr>
+</table> -->
+
+<!-- </body> -->
+
+<style>
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+/* Create four equal columns that floats next to each other */
+.column1 {
+    float: left;
+    width: 20%;
+    padding: 10px;
+    /* height: 300px; Should be removed. Only for demonstration */
+}
+.column2 {
+    float: left;
+    width: 15%;
+    padding: 10px;
+    /* height: 300px; Should be removed. Only for demonstration */
+}
+.column3 {
+    float: left;
+    width: 35%;
+    padding: 10px;
+    /* height: 300px; Should be removed. Only for demonstration */
+}
+.column4 {
+    float: left;
+    width: 10%;
+    padding: 10px;
+    /* height: 300px; Should be removed. Only for demonstration */
+}
+.column5 {
+    float: left;
+    width: 20%;
+    padding: 10px;
+    /* height: 300px; Should be removed. Only for demonstration */
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.col-8{width:62%; float:left;}
+.col-4{width:33%; float:right;}
+
+</style>
+</head>
+
+<center>
+<div style="background-color:#002e5b; color:white;  padding-top:20px;padding-bottom: 20px;"><h2>Sentiment Analysis of Scraped consumer reviews</h2></row></center>
+
+<div ng-repeat="object in fobject">
+hello
+</div>
+
+
+<div class="row" style="padding-left: 50px; padding-right: 50px;">
+  <div class="col-9" style="padding-top: 50px;">
+  
+    
+
+
+
+
+  <!--  <table>
+  <tr>
+    <th>Product Image</th>
+    <th>Name</th>
+    <th>Price</th>
+    <th>Buy from here</th>
+  </tr>
+  <tr ng-repeat="data in fobject">
+    <td><img id="img" alt="Mountain View"></td>
+    <td >   </td>
+    <td><span id="price"></span></td>
+    <td><span id="link"></span></td>
+  </tr>
+</table>
+
+ -->
+  </div>
+  <div class="col-5">
+    <center>
+      <h3>Search:</h3>
+<div ng-app="myApp" ng-controller="myCtrl"> 
+<input id="input" type="text" ng-model="product"></input>
+<button type="button" ng-click="loadDoc(product)">Go!</button>
+<p id=demo></p></div></center>
+</div></div>
+</div>
+</div>  
+
+
+<div class="row">
+  <div class="column1" style="background-color:#aaa;">
+      <span id="image" float="left"></span>
+  </div>
+  <div class="column2" style="background-color:#bbb;">
+   <span id="aspect"></span>
+  </div>
+  <div class="column3" style="background-color:#ccc;">
+    <span id="name"></span>
+  </div>
+  <div class="column4" style="background-color:#ddd;">
+   <span id="price"></span>
+  </div>
+  <div class="column5" style="background-color:#ddd;">
+  <a id="link"></a>
+  </div>
+</div>
+
+
+
+</body>
+</html>
